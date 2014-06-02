@@ -42,6 +42,10 @@ class Board
     end
   end
   
+  def num_rows
+    20
+  end
+  
   private
   
   def delete_row(idx)

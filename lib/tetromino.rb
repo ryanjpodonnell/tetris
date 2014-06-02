@@ -1,10 +1,9 @@
 class Tetromino
   attr_reader :shape
   
-  def initialize(board)
+  def initialize(board, shape)
     @board = board
-    @shape = [[-1, 0], [-1, 1], 
-              [ 0, 0], [ 0, 1]]
+    @shape = shape
   end  
   
   def find_best_position
@@ -26,17 +25,20 @@ class Tetromino
   def find_all_positions
     all_positions = []
     (0...10).each do |col|
-      row = find_lowest_open_tile(col)
-      all_positions.push([row, col]) if tetromino_fits?([row, col])
+      (0...20).each do |row|
+        # row = find_lowest_open_tile(col)
+        all_positions.push([row, col]) if tetromino_fits?([row, col])
+      end
     end
     all_positions
   end
   
   def find_lowest_open_tile(col)
-    (0...20).to_a.reverse.each do |row|
-      return row if @board.empty?([row, col])
+    (0...20).to_a.each do |row|
+      next if @board.empty?([row, col])
+      return row - 1
     end
-    nil
+    @board.num_rows - 1
   end
   
   def tetromino_fits?(pos)

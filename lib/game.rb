@@ -6,6 +6,25 @@ class Game
   
   def initialize
     @board = Board.new
+    @pieces = { "I" => [[ 0, 0], [ 0, 1], [ 0, 2], [ 0, 3]],
+      
+                "J" => [[-1, 0], [-1, 1], [-1, 2], 
+                                          [ 0, 2]],
+                                          
+                "L" => [[-1, 0], [-1, 1], [-1, 2], 
+                        [ 0, 0]],
+                        
+                "O" => [[-1, 0], [-1, 1], 
+                        [ 0, 0], [ 0, 1]],
+                        
+                "S" =>          [[-1, 1], [-1, 2], 
+                        [ 0, 0], [ 0, 1]],
+                        
+                "T" => [[-1, 0], [-1, 1], [-1, 2], 
+                                 [ 0, 1]],
+                                 
+                "Z" => [[-1, 0], [-1, 1], 
+                                 [ 0, 1], [ 0, 2]] }
   end
   
   def play
@@ -29,7 +48,7 @@ class Game
   private
   
   def spawn_new_tetromino
-    Tetromino.new(@board).find_best_position
+    Tetromino.new(@board, @pieces[@pieces.keys.sample]).find_best_position
   end
 end
 
