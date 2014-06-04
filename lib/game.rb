@@ -1,5 +1,7 @@
 require_relative 'board'
 require_relative 'tetromino'
+require 'colorize'
+require 'debugger'
 
 class Game
   attr_accessor :board
@@ -30,13 +32,14 @@ class Game
   def play
     puts "Do you want me to make a move? (y/n): "
     while gets.chomp == 'y'
-      make_move
+      return if make_move == false
       puts "Do you want me to make another move? (y/n): "
     end
   end
   
+  
   def make_move
-    spawn_new_tetromino
+    return false if spawn_new_tetromino == false
     print
     @board.check_for_full_rows
   end
@@ -48,7 +51,8 @@ class Game
   private
   
   def spawn_new_tetromino
-    Tetromino.new(@board, @pieces[@pieces.keys.sample]).find_best_position
+    shape = @pieces.keys.sample
+    Tetromino.new(@board, @pieces[shape], shape).find_best_position
   end
 end
 

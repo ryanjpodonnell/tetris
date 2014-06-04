@@ -26,7 +26,24 @@ class Board
   def render
     @grid.map do |row|
       row.map do |tile|
-        tile.nil? ? "." : "#"
+        case tile
+        when nil
+          "."
+        when "I"
+          "#".cyan
+        when "J"
+          "#".blue
+        when "L"
+          "#".light_black
+        when "O"
+          "#".yellow
+        when "S"
+          "#".light_green
+        when "T"
+          "#".magenta
+        when "Z"
+          "#".red
+        end
       end.join("")
     end.join("\n")
   end

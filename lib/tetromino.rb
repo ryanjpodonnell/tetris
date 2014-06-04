@@ -1,8 +1,9 @@
 class Tetromino
-  attr_reader :shape
+  attr_reader :geometry, :shape
   
-  def initialize(board, shape)
+  def initialize(board, geometry, shape)
     @board = board
+    @geometry = geometry
     @shape = shape
   end  
   
@@ -13,8 +14,10 @@ class Tetromino
     best_positions = all_positions.select { |pos| pos.first == best_row }
     best_col       = best_positions.collect { |idx| idx[1] }.min
     
-    @shape.each do |segment|
-      @board[[segment[0] + best_row, segment[1] + best_col]] = true
+    return false if all_positions.empty?
+    
+    @geometry.each do |segment|
+      @board[[segment[0] + best_row, segment[1] + best_col]] = shape
     end
     
     [best_row, best_col]
@@ -42,7 +45,7 @@ class Tetromino
   end
   
   def tetromino_fits?(pos)
-    @shape.all? do |seg_pos|
+    @geometry.all? do |seg_pos|
       x = seg_pos[0] + pos[0]
       y = seg_pos[1] + pos[1]
       @board.empty?([x, y]) && Board.valid_pos?([x, y])

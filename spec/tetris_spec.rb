@@ -73,9 +73,10 @@ end
 
 
 describe Tetromino do
-  subject(:tetromino) {Tetromino.new(Board.new)}
+  subject(:tetromino) {Tetromino.new(Board.new, [[-1, 0], [-1, 1], [ 0, 0], [ 0, 1]], "O")}
   
-  its (:shape) { should == [[-1, 0], [-1, 1], [ 0, 0], [ 0, 1]] }
+  its (:geometry) { should == [[-1, 0], [-1, 1], [ 0, 0], [ 0, 1]] }
+  its (:shape) { should == "O" }
 
   describe "Determining Where to Move" do
     context "finding the best position" do
